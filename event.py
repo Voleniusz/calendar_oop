@@ -1,3 +1,6 @@
+from datetime import timedelta, datetime
+
+
 class Event:
     def __init__(self, title, location, start_time, duration, owner, participants,):
         self.title = title
@@ -6,6 +9,23 @@ class Event:
         self.duration = duration
         self.participants = participants
         self.owner = owner
+
+    @property
+    def start_time(self):
+        return self._start_time
+
+    @start_time.setter
+    def start_time(self, val):
+        if not isinstance(val, str):
+            raise TypeError(f'Invalid value: {val}')
+
+        try:
+            parsed_date = datetime.strptime(val, '%d-%m-%Y %H:%M')
+        except ValueError:
+            raise ValueError(f'Invalid date format, use DD-MM-YYYY HH:MM, {val}')
+        if parsed_date < datetime.now() + timedelta(minutes=15):
+            raise ValueError(f'Not enough time to organize a meeting: {parsed_date - datetime.now()}')
+        self._start_time = val
 
     @property
     def title(self):
@@ -17,6 +37,24 @@ class Event:
             self._title = value
         else:
             self._title = "No title"
+
+    @property
+    def duration(self):
+        return self._duration
+
+    @duration.setter
+    def duration(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError(f'Invalid duration value, use integer or float: {value}')
+
+        if not (10 < value < 600):
+            raise ValueError(f'Too short or too long :{value} minutes')
+
+        self._duration = timedelta(minutes=value)
+
+
+e = Event(42, '', '14-05-2022 11:30', 11, '', '')
+print(e.start_time)
 
 
 
