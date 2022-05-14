@@ -1,14 +1,14 @@
 from datetime import timedelta, datetime
 
 
+def __init__(self, title, location, start_time, duration, owner, participants,):
+    self.title = title
+    self.location = location
+    self.start_time = start_time
+    self.duration = duration
+    self.participants = participants
+    self.owner = owner
 class Event:
-    def __init__(self, title, location, start_time, duration, owner, participants,):
-        self.title = title
-        self.location = location
-        self.start_time = start_time
-        self.duration = duration
-        self.participants = participants
-        self.owner = owner
 
     @property
     def start_time(self):
