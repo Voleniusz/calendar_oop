@@ -61,9 +61,13 @@ class Event:
         minutes = f'0{minutes}'[-2:]
         return f'{self.title}, time to event: {days}{hours}:{minutes}:{seconds}'
 
+    def __repr__(self):
+        return f"{type(self).__name__}('{self.title}', '{self.location}', '{self.location}', \
+        {self.start_time:%d-%m-%Y %H:%M'}, {self.duration.total_seconds() / 60}, {self.participants})"
 
-e = Event(42, '', '14-05-2022 12:50', 11, '', '')
-print(e)
+
+e = Event('Piwo', 'Wwa', '14-05-2022 12:50', 11.50, 'Ala', ['Ela', 'Ola'])
+print(repr(e))
 
 
 
